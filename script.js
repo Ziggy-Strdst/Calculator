@@ -1,48 +1,42 @@
-let active = 1;
+"use strict";
 
 const sum = function (a, b) {
-  return a + b;
+  return parseFloat((a + b).toFixed(5));
 };
 const subtract = function (a, b) {
-  return a - b;
+  return parseFloat((a - b).toFixed(5));
 };
 const multiply = function (a, b) {
-  return a * b;
+  return parseFloat((a * b).toFixed(5));
 };
 const divide = function (a, b) {
-  return a / b;
+  return parseFloat((a / b).toFixed(5));
 };
 const operate = function (op, a, b) {
   a = Number(a);
   b = Number(b);
   if (op === "+") {
-    result = sum(a, b);
-    inputEl.value = result;
-    return result;
+    return (inputEl.value = sum(a, b));
   } else if (op === "-") {
-    result = subtract(a, b);
-    inputEl.value = result;
-    return result;
+    return (inputEl.value = subtract(a, b));
   } else if (op === "*") {
-    result = multiply(a, b);
-    inputEl.value = result;
-    return result;
+    return (inputEl.value = multiply(a, b));
   } else if (op === "/") {
     if (b === 0) {
       return (inputEl.value = "FUCK OFF");
     }
-    result = divide(a, b);
-    inputEl.value = result;
-    return result;
+    return (inputEl.value = divide(a, b));
   }
 };
 
 //
 const inputEl = document.getElementById("input");
 const equalBtn = document.getElementById("equal");
-const cancelBtn = document.getElementById("cancel");
+const resetBtn = document.getElementById("reset");
 const numberBtns = document.querySelectorAll("[data-num]");
 const operatorBtns = document.querySelectorAll("[data-oper]");
+const dotBtn = document.getElementById("dot");
+const minusBtn = document.getElementById("minus");
 
 let curNumber = "";
 let number = "";
@@ -72,12 +66,24 @@ operatorBtns.forEach((btn) =>
   })
 );
 
+dotBtn.addEventListener("click", function () {
+  if (curNumber.includes(".")) return;
+  curNumber += ".";
+  inputEl.value = `${curNumber}`;
+});
+
+minusBtn.addEventListener("click", function () {
+  curNumber *= -1;
+  inputEl.value = `${curNumber}`;
+});
+
 equalBtn.addEventListener("click", function () {
+  if (!curNumber || !number) return;
   curNumber = operate(oper, number, curNumber);
   number = "";
 });
 
-cancelBtn.addEventListener("click", function () {
+resetBtn.addEventListener("click", function () {
   curNumber = "";
   number = "";
   oper = "";
