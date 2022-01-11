@@ -29,7 +29,6 @@ const operate = function (op, a, b) {
   }
 };
 
-//
 const inputEl = document.getElementById("input");
 const equalBtn = document.getElementById("equal");
 const resetBtn = document.getElementById("reset");
@@ -38,10 +37,14 @@ const operatorBtns = document.querySelectorAll("[data-oper]");
 const dotBtn = document.getElementById("dot");
 const minusBtn = document.getElementById("minus");
 
-let curNumber = "";
-let number = "";
-let oper = "";
-inputEl.value = "0";
+let curNumber, number, oper;
+const init = function () {
+  curNumber = "";
+  number = "";
+  oper = "";
+  inputEl.value = "0";
+};
+init();
 
 numberBtns.forEach((btn) =>
   btn.addEventListener("click", function (e) {
@@ -85,9 +88,4 @@ equalBtn.addEventListener("click", function () {
   number = "";
 });
 
-resetBtn.addEventListener("click", function () {
-  curNumber = "";
-  number = "";
-  oper = "";
-  inputEl.value = "0";
-});
+resetBtn.addEventListener("click", init);
