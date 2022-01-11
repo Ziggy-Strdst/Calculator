@@ -52,7 +52,9 @@ numberBtns.forEach((btn) =>
 
 operatorBtns.forEach((btn) =>
   btn.addEventListener("click", function (e) {
-    if (!curNumber || !number) {
+    if (!curNumber && !number) {
+      return;
+    } else if (!curNumber || !number) {
       oper = btn.dataset.oper;
       number = curNumber;
       curNumber = "";
